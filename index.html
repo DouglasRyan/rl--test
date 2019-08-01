@@ -58,17 +58,6 @@
         currentDate(year,month,day)
     }
 
-
-
-
-
-
-
-
-
-
-
-
     function currentDate(year,month,day){
         month=month +1 
         if (month < 1) {
@@ -126,78 +115,6 @@
 
 
     }
-
-
-
-
-    // createCalendar(year, month)
-
-    // pre.onclick = () => {
-    //     month = month - 1
-    //     if (month < 1) {
-    //         year = year - 1;
-    //         month = 12;
-    //     }
-    //     createCalendar(year, month)
-    // }
-
-    // next.onclick = () => {
-    //     month = month + 1;
-    //     if (month > 12) {
-    //         year = year + 1;
-    //         month = 1;
-    //     }
-    //     createCalendar(year, month)
-    // }
-
-
-
-
-
-
-
-
-
-
-
-    // function createCalendar(year, month) {
-    //     let firstDay = new Date(year, month, 1);
-    //     let firstDayWeek = firstDay.getDay();//获取当月第一天是星期几
-
-    //     let lastDay = new Date(year, month + 1, 0)
-    //     let lastDayDate = lastDay.getDate();//获取当月最后一天是什么时候
-
-    //     let line = Math.ceil((lastDayDate + firstDayWeek) / 7);//获取当月有几个星期
-
-    //     document.write(`
-    //     <table border='1' align='center' width='220' cellspacing='0'>
-    //         <tr>
-    //             <th align='center'>日</th>
-    //             <th align='center'>一</th>
-    //             <th align='center'>二</th>
-    //             <th align='center'>三</th>
-    //             <th align='center'>四</th>
-    //             <th align='center'>五</th>
-    //             <th align='center'>六</td>
-    //         </tr>
-    // `);
-
-    //     for (let i = 0; i < line; i++) {
-    //         document.write('<tr>');
-    //         let current, lineIndex;
-    //         for (let j = 0; j < 7; j++) {
-    //             lineIndex = i * 7 + j;
-    //             current = lineIndex - firstDayWeek + 1;//获取本月的每一个日期
-    //             console.log(lineIndex, current);
-    //             current = (current <= 0 || current > lastDayDate) ? "&nbsp;" : current;
-    //             current === day ? document.write("<td align='center' bgcolor='red'>" + current + "</td>") : document.write("<td align='center'>" + current + "</td>");
-    //         }
-    //         document.write("</tr>");
-    //     }
-    //     document.write("</table>");
-
-    // }
-
 
 </script>
 
