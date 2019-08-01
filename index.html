@@ -35,14 +35,27 @@
     let month = curDate.getMonth();
     let day = curDate.getDate();
 
-    
-
-    current.innerText = year + "年" + (month + 1) + "月" + day + "日"
-
+    currentDate(year,month,day)
     createRL(year,month,day)
 
-    pre.onclick=()=>{
-        
+    pre.onclick = () => {
+        month = month - 1
+        if (month < 1) {
+            year = year - 1;
+            month = 12;
+        }
+        createRL(year, month,day)
+        currentDate(year,month,day)
+    }
+
+    next.onclick = () => {
+        month = month + 1;
+        if (month > 12) {
+            year = year + 1;
+            month = 1;
+        }
+        createRL(year, month,day)
+        currentDate(year,month,day)
     }
 
 
@@ -56,14 +69,21 @@
 
 
 
-
-
-
-
-
-
+    function currentDate(year,month,day){
+        month=month +1 
+        if (month < 1) {
+            year = year - 1;
+            month = 12;
+        }
+        if (month > 12) {
+            year = year + 1;
+            month = 1;
+            console.log("a")
+        }
+        current.innerText = year + "年" + month + "月" + day + "日"
+    }
     function createRL(year,month,day) {
-
+        rl.innerHTML=""
         let firstDay = new Date(year, month, 1);
         let firstDayWeek = firstDay.getDay();//获取当月第一天是星期几
 
