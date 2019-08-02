@@ -8,9 +8,12 @@ let day = new Date();//今天
 let today = day.toDateString();
 let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
+
+
 //初始化
 initDate()
 
+//事件监听
 //上拉折叠
 fold.onclick=()=>{
     isFold=true;
@@ -21,9 +24,6 @@ unfold.onclick=()=>{
     isFold=false;
     initMonthDate()
 }
-
-
-
 //上一个
 pre.onclick = () => {
     if (isFold===true){
@@ -49,7 +49,6 @@ pre.onclick = () => {
     //         tds[day.getDay()].className = "current"
     //     }
     // }
-
 }
 //下一个
 next.onclick = ()=>{
@@ -77,7 +76,19 @@ next.onclick = ()=>{
     //     }
     // }
 }
-
+//点击变色
+options.onclick = (e)=>{
+    e.preventDefault()
+    let children = e.target.parentElement.children
+    console.log(children)
+    for (let i = 0;i<children.length;i++){
+        if(children[i]===e.target){
+            children[i].className = "optioned"
+        }else{
+            children[i].className=""
+        }
+    }
+}
 //初始化函数
 function initDate(){
     if (isFold===true){
