@@ -2,7 +2,9 @@ let rl = document.getElementById('calendarBody')
 let table =document.createElement('table')
 rl.appendChild(table)
 let isFold = false
-let firstDay, lastDay//周日历依赖
+let firstDay, lastDay;//周日历依赖
+let day = new Date();//今天
+let today = day.toDateString();
 let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
 //初始化
@@ -88,7 +90,10 @@ function setWeekDate() {
         let td = document.createElement('td')
         td.innerText = days[i].getDate();
         if (i === day){
-            td.className += 'current'
+            td.className += 'selected'
+            if (today == currentDate.toDateString()){
+                td.className += " current"
+            }
         }
         tr.appendChild(td);
     }
@@ -150,8 +155,12 @@ function setMonthDate() {
             current = (current <= 0 || current > lastDayDate) ? "" : current;
             td.innerText = current;
             if (current === day) {
-                td.className += "current"
+                td.className += "selected"
+                if (today == currentDate.toDateString()){
+                    td.className += " current"
+                }
             }
+
             tr.appendChild(td)
         }
         table.appendChild(tr)

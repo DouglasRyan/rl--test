@@ -22,11 +22,19 @@ body {
   .calendarBody table {
     width: 360px; }
     .calendarBody table th {
+      line-height: 40px;
       color: #C6C6C6; }
     .calendarBody table td {
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
       text-align: center;
-      padding-top: 12px;
       color: #373737; }
 
 .current {
-  color: red; }
+  background: #2A579A;
+  border-radius: 50%; }
+
+.selected {
+  border: 1px solid #2A579A;
+  border-radius: 50%; }
