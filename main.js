@@ -86,11 +86,14 @@ function baseDate() {
 //渲染一周日期
 function setWeekDate() {
     let days = getDays(currentDate);
-
+    let day = currentDate.getDay();
     let tr = document.createElement('tr')
     for (let i = 0; i < 7; i++) {
         let td = document.createElement('td')
         td.innerText = days[i].getDate();
+        if (i === day){
+            td.className += 'current'
+        }
         tr.appendChild(td);
     }
     table.appendChild(tr);
