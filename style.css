@@ -19,22 +19,35 @@ body {
 
 .calendarBody {
   width: 360px; }
-  .calendarBody table {
-    width: 360px; }
-    .calendarBody table th {
-      line-height: 40px;
-      color: #C6C6C6; }
-    .calendarBody table td {
-      width: 45px;
-      height: 45px;
-      line-height: 45px;
-      text-align: center;
-      color: #373737; }
+  .calendarBody table th {
+    line-height: 40px;
+    color: #C6C6C6; }
+  .calendarBody table td {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #373737; }
+
+.options {
+  border-top: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
+  width: 360px;
+  heigth: 45px;
+  line-height: 45px;
+  color: #6C6C6C;
+  display: flex;
+  justify-content: space-evenly;
+  box-shadow: 0px 1px 1px #E9E9E9; }
 
 .current {
   background: #2A579A;
   border-radius: 50%; }
 
-.selected {
+.optioned {
+  color: #2A579A;
+  font-weight: bold; }
+
+td.selected {
   border: 1px solid #2A579A;
   border-radius: 50%; }

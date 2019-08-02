@@ -1,5 +1,6 @@
 let rl = document.getElementById('calendarBody')
 let table =document.createElement('table')
+let tds = document.getElementsByTagName('td')
 rl.appendChild(table)
 let isFold = false
 let firstDay, lastDay;//周日历依赖
@@ -8,11 +9,7 @@ let today = day.toDateString();
 let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
 //初始化
-if (isFold===true){
-    initWeekDate()
-} else{
-    initMonthDate()
-}
+initDate()
 
 //上拉折叠
 fold.onclick=()=>{
@@ -25,6 +22,8 @@ unfold.onclick=()=>{
     initMonthDate()
 }
 
+
+
 //上一个
 pre.onclick = () => {
     if (isFold===true){
@@ -34,11 +33,22 @@ pre.onclick = () => {
     } else{
         let month = currentDate.getMonth();
         month = month - 1;
-        year = currentDate.getFullYear();
+        let year = currentDate.getFullYear();
         currentDate.setFullYear(year);
         currentDate.setMonth(month);
         initMonthDate();
     }
+    // let year = currentDate.getFullYear()
+    // let month = currentDate.getMonth()
+    // if (year===day.getFullYear() && month===day.getMonth()){
+    //     if (isFold===true){
+    //         if(tds[day.getDay()].innerText===day.getDay()){
+    //             console.log(tds[day.getDate()].innerText,day.getDay(),tds[day.getDay()].innerText)
+    //         }
+    //     } else{
+    //         tds[day.getDay()].className = "current"
+    //     }
+    // }
 
 }
 //下一个
@@ -50,16 +60,36 @@ next.onclick = ()=>{
     }else{
         let month = currentDate.getMonth();
         month = month + 1
-        year = currentDate.getFullYear();
+        let year = currentDate.getFullYear();
         currentDate.setFullYear(year)
         currentDate.setMonth(month)
         initMonthDate();
     }
+    // let year = currentDate.getFullYear()
+    // let month = currentDate.getMonth()
+    // if (year===day.getFullYear() && month===day.getMonth()){
+    //     if (isFold===true){
+    //         if(tds[day.getDay()].innerText===day.getDay()){
+    //
+    //         }
+    //     } else{
+    //         tds[day.getDay()].className = "current"
+    //     }
+    // }
 }
 
 //初始化函数
+function initDate(){
+    if (isFold===true){
+        initWeekDate()
+    } else{
+        initMonthDate()
+    }
+}
+
 function initWeekDate(){
     table.innerHTML='';
+    text.innerText = currentDate.toLocaleDateString();
     baseDate();
     setWeekDate();
 }
@@ -91,9 +121,6 @@ function setWeekDate() {
         td.innerText = days[i].getDate();
         if (i === day){
             td.className += 'selected'
-            if (today == currentDate.toDateString()){
-                td.className += " current"
-            }
         }
         tr.appendChild(td);
     }
@@ -160,7 +187,6 @@ function setMonthDate() {
                     td.className += " current"
                 }
             }
-
             tr.appendChild(td)
         }
         table.appendChild(tr)
