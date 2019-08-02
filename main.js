@@ -9,23 +9,25 @@ let currentDate = new Date();
 //当天时间文本
 text.innerText = currentDate.toLocaleDateString();
 
-fold.onclick=()=>{
-    isFold=true;
-    initWeekDate()
-}
-unfold.onclick=()=>{
-    isFold=false;
-    initMonthDate()
-}
-
-
+//初始化
 if (isFold===true){
     initWeekDate()
 } else{
     initMonthDate()
 }
 
-//
+//上拉折叠
+fold.onclick=()=>{
+    isFold=true;
+    initWeekDate()
+}
+//下拉展开
+unfold.onclick=()=>{
+    isFold=false;
+    initMonthDate()
+}
+
+//上一个
 pre.onclick = () => {
     if (isFold===true){
         setPreCurrentDate();
@@ -41,8 +43,7 @@ pre.onclick = () => {
     }
 
 }
-
-//
+//下一个
 next.onclick = ()=>{
     if (isFold===true) {
         setNextCurrentDate();
@@ -51,24 +52,82 @@ next.onclick = ()=>{
     }else{
         let month = currentDate.getMonth();
         month = month + 1
-
         year = currentDate.getFullYear();
         currentDate.setFullYear(year)
         currentDate.setMonth(month)
-
         initMonthDate();
     }
-
 }
 
-
+//初始化函数
+function initWeekDate(){
+    table.innerHTML='';
+    baseDate();
+    setWeekDate();
+}
 function initMonthDate() {
     text.innerText = currentDate.toLocaleDateString();
     table.innerHTML='';
     baseDate();
     setMonthDate();
 }
+function baseDate() {
+    let tr = document.createElement('tr')
+    let head = ['日', '一', '二', '三', '四', '五', '六']
+    for (let i = 0; i < 7; i++) {
+        let th = document.createElement('th')
+        th.innerText = head[i]
+        tr.appendChild(th)
+    }
+    table.appendChild(tr)
+}
 
+//周
+//渲染一周日期
+function setWeekDate() {
+    let days = getDays(currentDate);
+
+    let tr = document.createElement('tr')
+    for (let i = 0; i < 7; i++) {
+        let td = document.createElement('td')
+        td.innerText = days[i].getDate();
+        tr.appendChild(td);
+    }
+    table.appendChild(tr);
+    //重新赋值
+    lastDay = getDays(currentDate)[6]; //本周的最后一天
+    firstDay = getDays(currentDate)[0]; //本周的第一天
+}
+
+//上一周当天
+function setPreCurrentDate() {
+    currentDate.setDate(currentDate.getDate() - 7);
+}
+
+//下一周当天
+function setNextCurrentDate() {
+    currentDate.setDate(currentDate.getDate() + 7);
+}
+
+//在表格中显示一周的日期
+function getDays(date) {
+    let days = new Array();
+    for (let i = 1; i <= 7; i++) {
+        days[i - 1] = getInWeek(date,i);
+    }
+    return days;
+}
+
+//取得当前日期一周内的某一天
+function getInWeek(date,i) {
+    let n = date.getDay(); //今天星期几
+    let start = new Date();
+    start.setDate(date.getDate() - n + i -1); //一周内的第i天
+    return start;
+}
+
+//月
+//渲染一月日期
 function setMonthDate() {
     let year = currentDate.getFullYear();
     let month = currentDate.getMonth();
@@ -98,118 +157,4 @@ function setMonthDate() {
         }
         table.appendChild(tr)
     }
-}
-
-function initWeekDate(){
-    table.innerHTML='';
-    baseDate();
-    setWeekDate();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//上一周当天
-function setPreCurrentDate() {
-    currentDate.setDate(currentDate.getDate() - 7);
-}
-//下一周当天
-function setNextCurrentDate() {
-    currentDate.setDate(currentDate.getDate() + 7);
-}
-
-
-
-
-function baseDate() {
-    let tr = document.createElement('tr')
-    let head = ['日', '一', '二', '三', '四', '五', '六']
-    for (let i = 0; i < 7; i++) {
-        let th = document.createElement('th')
-        th.innerText = head[i]
-        tr.appendChild(th)
-    }
-    table.appendChild(tr)
-}
-
-function setWeekDate() {
-    let days = getDays(currentDate);
-
-    let tr = document.createElement('tr')
-    for (let i = 0; i < 7; i++) {
-        let td = document.createElement('td')
-        td.innerText = days[i].getDate();
-        tr.appendChild(td);
-    }
-    table.appendChild(tr);
-
-    //重新赋值
-    lastDay = getDays(currentDate)[6]; //本周的最后一天
-    firstDay = getDays(currentDate)[0]; //本周的第一天
-}
-
-//在表格中显示一周的日期
-function getDays(date) {
-    let days = new Array();
-    for (let i = 1; i <= 7; i++) {
-        days[i - 1] = getInWeek(date,i);
-    }
-    return days;
-}
-
-//取得当前日期一周内的某一天
-function getInWeek(date,i) {
-    let n = date.getDay(); //今天星期几
-    let start = new Date();
-    start.setDate(date.getDate() - n + i -1); //一周内的第i天
-    return start;
 }
