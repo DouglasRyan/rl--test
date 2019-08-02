@@ -2,12 +2,9 @@ let rl = document.getElementById('calendarBody')
 let table =document.createElement('table')
 rl.appendChild(table)
 let isFold = false
-//周日历依赖
-let firstDay, lastDay
-//当前时间
-let currentDate = new Date();
-//当天时间文本
-text.innerText = currentDate.toLocaleDateString();
+let firstDay, lastDay//周日历依赖
+let currentDate = new Date();//当前时间
+text.innerText = currentDate.toLocaleDateString();//当天时间文本
 
 //初始化
 if (isFold===true){
