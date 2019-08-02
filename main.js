@@ -5,7 +5,6 @@ let isFold = false
 let firstDay, lastDay//周日历依赖
 let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
-
 //初始化
 if (isFold===true){
     initWeekDate()
