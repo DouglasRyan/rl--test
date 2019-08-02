@@ -1,0 +1,14 @@
+.rl{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .control{
+    flex-basis: 100%;
+    text-align: center;
+  }
+}
+
+
+.current {
+  color: red;
+}
