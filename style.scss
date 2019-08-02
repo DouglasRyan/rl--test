@@ -1,13 +1,41 @@
+body{
+  width:360px;
+  margin:0 auto;
+}
 .rl{
+  width:360px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   .control{
+    line-height: 50px;
+    color:#FCFCFC;
+    background: #333333;
     flex-basis: 100%;
     text-align: center;
+    .text{
+
+    }
+    .today{
+      float: right;
+      padding-right: 15px;
+    }
   }
 }
-
+.calendarBody{
+  width:360px;
+  table{
+    width:360px;
+    th{
+      color:#C6C6C6;
+    }
+    td{
+      text-align: center;
+      padding-top:12px;
+      color:#373737;
+    }
+  }
+}
 
 .current {
   color: red;
