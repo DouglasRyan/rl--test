@@ -3,36 +3,98 @@ let pre = document.getElementById('pre')
 let next = document.getElementById('next')
 let current = document.getElementById('current')
 let rl = document.getElementById('calendarBody')
+let table =document.createElement('table')
+rl.appendChild(table)
+
+
+
+let isFold = true
+
+
+//周日历依赖
+let firstDay, lastDay
 
 //当前时间
-let curDate = new Date();
-let year = curDate.getFullYear();
-let month = curDate.getMonth();
-let day = curDate.getDate();
+let currentDate = new Date();
+let year = currentDate.getFullYear();
+let month = currentDate.getMonth();
+let day = currentDate.getDate();
+text.innerText = currentDate.toLocaleDateString();
 
-currentDate(year, month, day)
-createRL(year, month, day)
+if(isFold===true){
+    initWeekDate()
+}else{
+    initMonthDate()
+}
+
+
+function initWeekDate() {
+    table.innerHTML='';
+    baseDate();
+    weekDate();
+}
+function initMonthDate() {
+    currentDateText(year, month, day)
+    createRL(year, month, day)
+    console.log(3)
+}
+
+fold.onclick=()=>{
+    isFold = true;
+    initWeekDate();
+}
+unfold.onclick=()=>{
+    isFold = !isFold;
+    if (isFold===true){
+        text.innerText = currentDate.toLocaleDateString();
+        table.innerHTML=''
+        initWeekDate();
+        console.log(1);
+        console.dir (table.innerHTML)
+    } else{
+        initMonthDate()
+        console.log(2)
+    }
+
+}
+
+
 
 pre.onclick = () => {
-    month = month - 1
-    if (month < 1) {
-        year = year - 1;
-        month = 12;
+    if (isFold===false){
+        month = month - 1
+        if (month < 1) {
+            year = year - 1;
+            month = 12;
+        }
+        initMonthDate();
+    } else{
+        setPreCurrentDate();
+        text.innerText = currentDate.toLocaleDateString();
+        initWeekDate();
     }
-    createRL(year, month, day)
-    currentDate(year, month, day)
+
 }
 
 next.onclick = () => {
-    month = month + 1;
-    if (month > 12) {
-        year = year + 1;
-        month = 1;
+    if (isFold===false){
+        month = month + 1;
+        if (month > 12) {
+            year = year + 1;
+            month = 1;
+        }
+        initMonthDate();
+    }else{
+        setNextCurrentDate();
+        text.innerText = currentDate.toLocaleDateString();
+        initWeekDate();
     }
-    createRL(year, month, day)
-    currentDate(year, month, day)
+
+
 }
-function currentDate(year, month, day) {
+
+
+function currentDateText(year, month, day) {
     month = month + 1
     if (month < 1) {
         year = year - 1;
@@ -43,7 +105,7 @@ function currentDate(year, month, day) {
         month = 1;
         console.log("a")
     }
-    current.innerText = year + "年" + month + "月" + day + "日"
+    text.innerText = year + "年" + month + "月" + day + "日"
 }
 function createRL(year, month, day) {
     rl.innerHTML = ""
@@ -84,4 +146,64 @@ function createRL(year, month, day) {
         }
         table.appendChild(tr)
     }
+}
+
+
+//周日历
+//上一周
+
+//上一周当天
+function setPreCurrentDate() {
+    currentDate.setDate(currentDate.getDate() - 7);
+}
+//下一周当天
+function setNextCurrentDate() {
+    currentDate.setDate(currentDate.getDate() + 7);
+}
+
+
+//在表格中显示一周的日期
+function getDays(date) {
+    let days = new Array();
+    for (let i = 1; i <= 7; i++) {
+        days[i - 1] = getInWeek(date,i);
+    }
+    return days;
+}
+
+//取得当前日期一周内的某一天
+function getInWeek(date,i) {
+    let n = date.getDay(); //今天星期几
+    let start = new Date();
+    start.setDate(date.getDate() - n + i -1); //一周内的第i天
+    return start;
+}
+
+
+
+function baseDate() {
+    let tr = document.createElement('tr')
+    let head = ['日', '一', '二', '三', '四', '五', '六']
+    for (let i = 0; i < 7; i++) {
+        let th = document.createElement('th')
+        th.innerText = head[i]
+        tr.appendChild(th)
+    }
+    table.appendChild(tr)
+}
+
+function weekDate() {
+    let days = getDays(currentDate);
+
+    let tr = document.createElement('tr')
+    for (let i = 0; i < 7; i++) {
+        let td = document.createElement('td')
+        td.innerText = days[i].getDate();
+        tr.appendChild(td);
+    }
+    table.appendChild(tr);
+
+    //重新赋值
+    lastDay = getDays(currentDate)[6]; //本周的最后一天
+    firstDay = getDays(currentDate)[0]; //本周的第一天
 }
