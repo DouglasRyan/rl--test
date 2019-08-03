@@ -8,10 +8,33 @@ let day = new Date();//今天
 let today = day.toDateString();
 let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
+let
 
 
 //初始化
 initDate()
+
+
+//移动端事件监听
+table.addEventListener('touchstart', enter)
+function enter(e){
+    let x = e.changedTouches[0].screenX
+    let y = e.changedTouches[0].screenY
+    console.log("开始")
+    console.log(x,y)
+}
+
+table.addEventListener('touchmove', move)
+function move(e){
+    console.log("移动")
+    console.log(e)
+}
+
+table.addEventListener('touchend', end)
+function end(e){
+    console.log("结束")
+    console.log(e)
+}
 
 //事件监听
 //上拉折叠
