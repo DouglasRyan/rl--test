@@ -92,7 +92,6 @@ options.onclick = (e)=>{
 table.onclick = (e)=>{
     e.preventDefault()
     if (e.target.tagName === "TD") {
-        console.log(e.target)
         for(let i = 0;i<table.children.length;i++){
             for(let j = 0;j<table.children[i].children.length;j++){
                 if(table.children[i].children[j]===e.target){
@@ -103,7 +102,16 @@ table.onclick = (e)=>{
             }
         }
     }
+    currentDate.setDate(e.target.innerText)
+    initDate()
 }
+//点击今天到达今天
+toToday.onclick = (e)=>{
+    e.preventDefault()
+    currentDate = new Date()
+    initDate()
+}
+
 
 //初始化函数
 function initDate(){
