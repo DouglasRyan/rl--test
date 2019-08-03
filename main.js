@@ -23,7 +23,9 @@ function enter(e){
     let y = e.changedTouches[0].screenY
     coor[0] = [x,y]
     console.log("开始")
-    console.log(coor[0])
+
+
+
 }
 
 table.addEventListener('touchmove', move)
@@ -59,9 +61,27 @@ function end(e){
     e.preventDefault()
     let x = e.changedTouches[0].screenX
     let y = e.changedTouches[0].screenY
-    coor[0] = [x,y]
+    coor[1] = [x,y]
     console.log("结束")
     console.log(e)
+    if (coor[0][0]===coor[1][0] && coor[1][1]===coor[0][1]){
+        let tar = e.changedTouches[0].target
+
+        if (tar.tagName === "TD") {
+            for(let i = 0;i<table.children.length;i++){
+                for(let j = 0;j<table.children[i].children.length;j++){
+                    if(table.children[i].children[j]===tar){
+                        tar.className = "selected"
+                        currentDate.setDate(tar.innerText)
+                    }else{
+                        table.children[i].children[j].className = ""
+                    }
+                }
+            }
+            initDate()
+        }
+    }
+
 }
 
 //事件监听
@@ -70,19 +90,19 @@ function up(){
     isFold=true;
     initWeekDate()
 }
-fold.onclick=()=>{
-    isFold=true;
-    initWeekDate()
-}
+// fold.onclick=()=>{
+//     isFold=true;
+//     initWeekDate()
+// }
 //下拉展开
 function down(){
     isFold=false;
     initMonthDate()
 }
-unfold.onclick=()=>{
-    isFold=false;
-    initMonthDate()
-}
+// unfold.onclick=()=>{
+//     isFold=false;
+//     initMonthDate()
+// }
 //上一个
 function left(){
     if (isFold===true){
@@ -97,21 +117,21 @@ function left(){
         currentDate.setMonth(month);
         initMonthDate();
     }
-}
-pre.onclick = () => {
-    if (isFold===true){
-        setPreCurrentDate();
-        text.innerText = currentDate.toLocaleDateString();
-        initWeekDate();
-    } else{
-        let month = currentDate.getMonth();
-        month = month - 1;
-        let year = currentDate.getFullYear();
-        currentDate.setFullYear(year);
-        currentDate.setMonth(month);
-        initMonthDate();
-    }
-}
+ }
+// pre.onclick = () => {
+//     if (isFold===true){
+//         setPreCurrentDate();
+//         text.innerText = currentDate.toLocaleDateString();
+//         initWeekDate();
+//     } else{
+//         let month = currentDate.getMonth();
+//         month = month - 1;
+//         let year = currentDate.getFullYear();
+//         currentDate.setFullYear(year);
+//         currentDate.setMonth(month);
+//         initMonthDate();
+//     }
+// }
 //下一个
 function right(){
     if (isFold===true) {
@@ -127,20 +147,20 @@ function right(){
         initMonthDate();
     }
 }
-next.onclick = ()=>{
-    if (isFold===true) {
-        setNextCurrentDate();
-        text.innerText = currentDate.toLocaleDateString();
-        initWeekDate()
-    }else{
-        let month = currentDate.getMonth();
-        month = month + 1
-        let year = currentDate.getFullYear();
-        currentDate.setFullYear(year)
-        currentDate.setMonth(month)
-        initMonthDate();
-    }
-}
+// next.onclick = ()=>{
+//     if (isFold===true) {
+//         setNextCurrentDate();
+//         text.innerText = currentDate.toLocaleDateString();
+//         initWeekDate()
+//     }else{
+//         let month = currentDate.getMonth();
+//         month = month + 1
+//         let year = currentDate.getFullYear();
+//         currentDate.setFullYear(year)
+//         currentDate.setMonth(month)
+//         initMonthDate();
+//     }
+// }
 //点击变色
 options.onclick = (e)=>{
     e.preventDefault()

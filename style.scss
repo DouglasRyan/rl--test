@@ -72,3 +72,15 @@ td{
     border-radius: 50%;
   }
 }
+.upBtn,
+.dropBtn {
+  display: none;
+  height: 15px;
+  width: 15px;
+  text-align: center;
+  padding: 0 170px 15px 170px;
+}
+.upBtn.active,
+.dropBtn.active {
+  display: block;
+}
