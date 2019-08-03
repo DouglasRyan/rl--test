@@ -38,17 +38,6 @@ pre.onclick = () => {
         currentDate.setMonth(month);
         initMonthDate();
     }
-    // let year = currentDate.getFullYear()
-    // let month = currentDate.getMonth()
-    // if (year===day.getFullYear() && month===day.getMonth()){
-    //     if (isFold===true){
-    //         if(tds[day.getDay()].innerText===day.getDay()){
-    //             console.log(tds[day.getDate()].innerText,day.getDay(),tds[day.getDay()].innerText)
-    //         }
-    //     } else{
-    //         tds[day.getDay()].className = "current"
-    //     }
-    // }
 }
 //下一个
 next.onclick = ()=>{
@@ -64,17 +53,6 @@ next.onclick = ()=>{
         currentDate.setMonth(month)
         initMonthDate();
     }
-    // let year = currentDate.getFullYear()
-    // let month = currentDate.getMonth()
-    // if (year===day.getFullYear() && month===day.getMonth()){
-    //     if (isFold===true){
-    //         if(tds[day.getDay()].innerText===day.getDay()){
-    //
-    //         }
-    //     } else{
-    //         tds[day.getDay()].className = "current"
-    //     }
-    // }
 }
 //点击变色
 options.onclick = (e)=>{
@@ -96,13 +74,14 @@ table.onclick = (e)=>{
             for(let j = 0;j<table.children[i].children.length;j++){
                 if(table.children[i].children[j]===e.target){
                     e.target.className = "selected"
+                    currentDate.setDate(e.target.innerText)
                 }else{
                     table.children[i].children[j].className = ""
                 }
             }
         }
     }
-    currentDate.setDate(e.target.innerText)
+
     initDate()
 }
 //点击今天到达今天
