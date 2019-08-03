@@ -80,7 +80,6 @@ next.onclick = ()=>{
 options.onclick = (e)=>{
     e.preventDefault()
     let children = e.target.parentElement.children
-    console.log(children)
     for (let i = 0;i<children.length;i++){
         if(children[i]===e.target){
             children[i].className = "optioned"
@@ -89,6 +88,23 @@ options.onclick = (e)=>{
         }
     }
 }
+//table点击变色
+table.onclick = (e)=>{
+    e.preventDefault()
+    if (e.target.tagName === "TD") {
+        console.log(e.target)
+        for(let i = 0;i<table.children.length;i++){
+            for(let j = 0;j<table.children[i].children.length;j++){
+                if(table.children[i].children[j]===e.target){
+                    e.target.className = "selected"
+                }else{
+                    table.children[i].children[j].className = ""
+                }
+            }
+        }
+    }
+}
+
 //初始化函数
 function initDate(){
     if (isFold===true){
