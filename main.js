@@ -5,6 +5,7 @@ rl.appendChild(table)
 let isFold = false
 let firstDay, lastDay;//周日历依赖
 let day = new Date();//今天
+let now = new Date()
 let today = day.toDateString();
 let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
@@ -30,10 +31,8 @@ function move(e){
     //上下滑动
     if((coor[1][1]-coor[0][1])>30){
         down()
-        console.log("down")
     }else if ((coor[1][1]-coor[0][1])<-30){
         up()
-        console.log("up")
     }
     //左右滑动
     if((coor[1][0]-coor[0][0])>30){
@@ -106,7 +105,7 @@ function left(){
         currentDate.setMonth(month);
         initMonthDate();
     }
- }
+}
 // pre.onclick = () => {
 //     if (isFold===true){
 //         setPreCurrentDate();
@@ -230,6 +229,16 @@ function setWeekDate() {
         td.innerText = days[i].getDate();
         if (i === day){
             td.className += 'selected'
+        }
+        let a = now.getDate().toString()
+        if (td.innerText===a){
+            let year = currentDate.getFullYear();
+            let month = currentDate.getMonth();
+            console.log(year,now.getFullYear())
+            console.log(year===now.getFullYear())
+            if (year === now.getFullYear() && month ===now.getMonth()){
+                td.className = 'current'
+            }
         }
         tr.appendChild(td);
     }
