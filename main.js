@@ -10,10 +10,8 @@ let currentDate = new Date();//当前时间
 text.innerText = currentDate.toLocaleDateString();//当天时间文本
 let coor = []
 
-
 //初始化
 initDate()
-
 
 //移动端事件监听
 table.addEventListener('touchstart', enter)
@@ -22,72 +20,61 @@ function enter(e){
     let x = e.changedTouches[0].screenX
     let y = e.changedTouches[0].screenY
     coor[0] = [x,y]
-    console.log("开始")
-
-
-
 }
-
 table.addEventListener('touchmove', move)
 function move(e){
     e.preventDefault()
     let x = e.changedTouches[0].screenX
     let y = e.changedTouches[0].screenY
     coor[1] = [x,y]
-    console.log(coor)
-    console.log(coor[1][1],coor[0][1])
-    if((coor[1][1]-coor[0][1])>10){
+    //上下滑动
+    if((coor[1][1]-coor[0][1])>30){
         down()
         console.log("down")
-    }else if ((coor[1][1]-coor[0][1])<-10){
+    }else if ((coor[1][1]-coor[0][1])<-30){
         up()
         console.log("up")
-    }else{
-
     }
-
-    if((coor[1][0]-coor[0][0])>20){
-        right()
-    }else if ((coor[1][0]-coor[0][0])<-20){
+    //左右滑动
+    if((coor[1][0]-coor[0][0])>30){
         left()
-    }else{
-
+    }else if ((coor[1][0]-coor[0][0])<-30){
+        right()
     }
-
 }
-
 table.addEventListener('touchend', end)
 function end(e){
     e.preventDefault()
     let x = e.changedTouches[0].screenX
     let y = e.changedTouches[0].screenY
     coor[1] = [x,y]
-    console.log("结束")
-    console.log(e)
+    //点击变色
     if (coor[0][0]===coor[1][0] && coor[1][1]===coor[0][1]){
         let tar = e.changedTouches[0].target
-
         if (tar.tagName === "TD") {
-            for(let i = 0;i<table.children.length;i++){
-                for(let j = 0;j<table.children[i].children.length;j++){
-                    if(table.children[i].children[j]===tar){
-                        tar.className = "selected"
-                        currentDate.setDate(tar.innerText)
-                    }else{
-                        table.children[i].children[j].className = ""
+            if (tar.innerText!==""){
+                for(let i = 0;i<table.children.length;i++){
+                    for(let j = 0;j<table.children[i].children.length;j++){
+                        if(table.children[i].children[j]===tar){
+                            tar.className = "selected"
+                            currentDate.setDate(tar.innerText)
+                        }else{
+                            table.children[i].children[j].className = ""
+                        }
                     }
                 }
+                initDate()
             }
-            initDate()
         }
     }
 
 }
-
 //事件监听
 //上拉折叠
 function up(){
     isFold=true;
+    dropBtn.className = "dropBtn active"
+    upBtn.className = "upBtn"
     initWeekDate()
 }
 // fold.onclick=()=>{
@@ -97,13 +84,15 @@ function up(){
 //下拉展开
 function down(){
     isFold=false;
+    dropBtn.className = "dropBtn"
+    upBtn.className = "upBtn active"
     initMonthDate()
 }
 // unfold.onclick=()=>{
 //     isFold=false;
 //     initMonthDate()
 // }
-//上一个
+//左滑动
 function left(){
     if (isFold===true){
         setPreCurrentDate();
@@ -132,7 +121,7 @@ function left(){
 //         initMonthDate();
 //     }
 // }
-//下一个
+//右滑动
 function right(){
     if (isFold===true) {
         setNextCurrentDate();
@@ -173,24 +162,24 @@ options.onclick = (e)=>{
         }
     }
 }
-//table点击变色
-table.onclick = (e)=>{
-    e.preventDefault()
-    if (e.target.tagName === "TD") {
-        for(let i = 0;i<table.children.length;i++){
-            for(let j = 0;j<table.children[i].children.length;j++){
-                if(table.children[i].children[j]===e.target){
-                    e.target.className = "selected"
-                    currentDate.setDate(e.target.innerText)
-                }else{
-                    table.children[i].children[j].className = ""
-                }
-            }
-        }
-    }
-
-    initDate()
-}
+// //table点击变色
+// table.onclick = (e)=>{
+//     e.preventDefault()
+//     if (e.target.tagName === "TD") {
+//         for(let i = 0;i<table.children.length;i++){
+//             for(let j = 0;j<table.children[i].children.length;j++){
+//                 if(table.children[i].children[j]===e.target){
+//                     e.target.className = "selected"
+//                     currentDate.setDate(e.target.innerText)
+//                 }else{
+//                     table.children[i].children[j].className = ""
+//                 }
+//             }
+//         }
+//     }
+//
+//     initDate()
+// }
 //点击今天到达今天
 toToday.onclick = (e)=>{
     e.preventDefault()
@@ -207,7 +196,6 @@ function initDate(){
         initMonthDate()
     }
 }
-
 function initWeekDate(){
     table.innerHTML='';
     text.innerText = currentDate.toLocaleDateString();
@@ -250,17 +238,14 @@ function setWeekDate() {
     lastDay = getDays(currentDate)[6]; //本周的最后一天
     firstDay = getDays(currentDate)[0]; //本周的第一天
 }
-
 //上一周当天
 function setPreCurrentDate() {
     currentDate.setDate(currentDate.getDate() - 7);
 }
-
 //下一周当天
 function setNextCurrentDate() {
     currentDate.setDate(currentDate.getDate() + 7);
 }
-
 //在表格中显示一周的日期
 function getDays(date) {
     let days = new Array();
@@ -269,7 +254,6 @@ function getDays(date) {
     }
     return days;
 }
-
 //取得当前日期一周内的某一天
 function getInWeek(date,i) {
     let n = date.getDay(); //今天星期几
